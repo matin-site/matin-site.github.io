@@ -18,7 +18,7 @@ document.getElementById("loggerForm").addEventListener("submit", function(event)
       if (response.ok) {
         alert("مشکلی پیش آمد بعدا دوباره امتحان کنید");
       } else {
-        alert("لطفا شماره خود را صحیح وارد کنید🙏");
+      alert("لطفا شماره خود را صحیح وارد کنید🙏");
       }
     })
     .catch(function(error) {
