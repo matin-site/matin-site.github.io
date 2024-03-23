@@ -1,96 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>System Info Sender</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-    .container {
-        max-width: 400px;
-        margin: 100px auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    .container h2 {
-        margin-bottom: 20px;
-    }
-    .form-group {
-        margin-bottom: 20px;
-    }
-    .form-group label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-    .form-group input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    .form-group button {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .form-group button:hover {
-        background-color: #0056b3;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Information Sender</title>
 </head>
 <body>
-<div class="container">
-    <h2>Send System Info</h2>
+    <h2>Enter Your Chat ID and Bot Token</h2>
     <form id="system-info-form">
-        <div class="form-group">
-            <label for="chat-id">Chat ID:</label>
-            <input type="text" id="chat-id" name="chat-id" required>
-        </div>
-        <div class="form-group">
-            <label for="bot-token">Bot Token:</label>
-            <input type="text" id="bot-token" name="bot-token" required>
-        </div>
-        <div class="form-group">
-            <button type="submit">Send System Info</button>
-        </div>
+        <label for="chat_id">Chat ID:</label><br>
+        <input type="text" id="chat_id" name="chat_id"><br>
+        <label for="token">Bot Token:</label><br>
+        <input type="text" id="token" name="token"><br><br>
+        <button type="button" onclick="sendSystemInfo()">Send System Information</button>
     </form>
-</div>
 
-<script>
-    document.getElementById("system-info-form").addEventListener("submit", function(event) {
-        event.preventDefault();
-        var chatId = document.getElementById("chat-id").value;
-        var botToken = document.getElementById("bot-token").value;
-        var systemInfo = "System: " + navigator.platform + " Release: " + navigator.appVersion + " Architecture: " + navigator.userAgent;
-        var dataToSend = {
-            token: botToken,
-            method: "sendMessage",
-            data: {
-                chat_id: chatId,
-                text: systemInfo
-            }
-        };
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "matin-site.github.io/os", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log(xhr.responseText);
-                alert("System info sent successfully!");
-            }
-        };
-        xhr.send(JSON.stringify(dataToSend));
-    });
-</script>
+    <script>
+        function sendSystemInfo() {
+            var chatId = document.getElementById("1171970672").value;
+            var token = document.getElementById("6751743920:AAFKRHdaYL5ozxqC3xOHq8tX7CIW7_rS7mk").value;
+            var systemInfo = "System: " + navigator.platform + " Release: " + navigator.userAgent;
+
+            var dataToSend = {
+                token: token,
+                method: "sendMessage",
+                data: {
+                    chat_id: chatId,
+                    text: systemInfo
+                }
+            };
+
+            fetch("matin-site.github.io/os", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dataToSend)
+            })
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
 </body>
 </html>
